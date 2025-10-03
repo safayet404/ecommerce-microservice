@@ -31,13 +31,12 @@ const getProducts = async (req: Request, res: Response, next: NextFunction) => {
       if (maxPrice !== undefined) where.price.lte = maxPrice;
     }
 
-    // Fetch data + count for total pages
     const [products, total] = await Promise.all([
       prisma.product.findMany({
         skip,
         take: limit,
         where,
-        orderBy: { createdAt: "desc" }, // optional
+        orderBy: { createdAt: "desc" },
         select: {
           id: true,
           sku: true,
