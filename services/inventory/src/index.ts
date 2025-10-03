@@ -20,6 +20,15 @@ app.get("/health", (req, res) => {
 });
 
 // routes
+app.use((req, res, next) => {
+  const allowOrigins = ["http://localhost:8081", "http://127.0.0.1:8081"];
+  const origin = req.headers.origin || "";
+  if (allowOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  } else {
+    return res.status(403).json({ message: "Forbidden" });
+  }
+});
 
 app.get("/inventories/:id/details", getInventoryDetails);
 app.get("/inventories/:id", getInventoryById);
