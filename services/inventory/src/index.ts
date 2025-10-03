@@ -3,7 +3,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import morgan from "morgan";
-import { createInventory } from "./controllers";
+import { createInventory, updateInventory } from "./controllers";
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -16,6 +16,7 @@ app.get("/health", (req, res) => {
 
 // routes
 
+app.put("/inventories/:id", updateInventory);
 app.post("/inventories", createInventory);
 
 //  404 handler
