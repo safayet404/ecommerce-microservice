@@ -20,8 +20,10 @@ const createInventory = async (
 
     //   Create Inventory
 
-    const inventory = await prisma.inventory.create({
-      data: {
+    const inventory = await prisma.inventory.upsert({
+      where: { sku: parseBody.data.sku },
+      update: {},
+      create: {
         ...parseBody.data,
         histories: {
           create: {
@@ -38,10 +40,7 @@ const createInventory = async (
       },
     });
 
-    return res.status(201).json({
-      message: "Inventory created successfully",
-      data: inventory,
-    });
+    return res.status(201).json(inventory);
   } catch (error) {
     next(error);
   }

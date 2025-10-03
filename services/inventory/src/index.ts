@@ -47,7 +47,7 @@ app.use(
   }
 );
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4001;
 const serviceName = process.env.SERVICE_NAME || "inventory-service";
 
 app.listen(PORT, () => {

@@ -58,10 +58,7 @@ const updateInventory = async (
       },
     });
 
-    return res.status(200).json({
-      message: "Inventory updated successfully",
-      data: updateInventory,
-    });
+    return res.status(200).json(updateInventory);
   } catch (error) {
     next(error);
   }

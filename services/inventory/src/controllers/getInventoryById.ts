@@ -20,10 +20,7 @@ const getInventoryById = async (
       return res.status(404).json({ message: "Inventory not found" });
     }
 
-    return res.status(200).json({
-      message: "Inventory fetched successfully",
-      data: inventory,
-    });
+    return res.status(200).json(inventory);
   } catch (error) {
     next(error);
   }
