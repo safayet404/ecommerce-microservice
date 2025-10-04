@@ -3,7 +3,12 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import morgan from "morgan";
-import { userLogin, userRegistration, verifyToken } from "./controllers";
+import {
+  userLogin,
+  userRegistration,
+  verifyEmail,
+  verifyToken,
+} from "./controllers";
 
 dotenv.config();
 const app = express();
@@ -30,7 +35,7 @@ app.get("/health", (req, res) => {
 app.post("/auth/registration", userRegistration);
 app.post("/auth/login", userLogin);
 app.post("/auth/verify-token", verifyToken);
-
+app.post("/auth/verify-email", verifyEmail);
 //  404 handler
 app.use((req, res, next) => {
   res.status(404).json({ message: "Route not found" });

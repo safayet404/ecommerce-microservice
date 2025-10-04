@@ -4,7 +4,16 @@ import { UserCreateSchema } from "@/schema";
 import { Request, Response, NextFunction } from "express";
 
 import bcrypt from "bcryptjs";
-import { USER_SERVICE } from "@/config";
+import { EMAIL_SERVICE_URL, USER_SERVICE } from "@/config";
+
+const generateVerificationCode = () => {
+  const timestamp = Date.now().toString();
+  const ramdomNum = Math.floor(10 + Math.random() * 90);
+
+  let code = (timestamp + ramdomNum).slice(-5);
+
+  return code;
+};
 
 const userRegistration = async (
   req: Request,
@@ -57,7 +66,25 @@ const userRegistration = async (
       email: user.email,
     });
 
-    return res.status(201).json(user);
+    const code = generateVerificationCode();
+    await prisma.verificationCode.create({
+      data: {
+        code,
+        userId: user.id,
+        expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24), // 24 hours
+      },
+    });
+
+    await axios.post(`${EMAIL_SERVICE_URL}/emails/send`, {
+      recipient: user.email,
+      subject: "Verify your email",
+      body: `Your verification code is ${code}. It will expire in 24 hours.`,
+      source: "user-registration",
+    });
+
+    return res
+      .status(201)
+      .json({ message: "User registered successfully", user });
   } catch (error) {
     next(error);
   }

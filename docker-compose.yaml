@@ -34,7 +34,16 @@ services:
       - "5050:80"
       - "5051:443"
 
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+    volumes:
+      - mailhog:/var/lib/mailhog
   # ------------------------------------------
 
 volumes:
   postgres:
+  mailhog:
