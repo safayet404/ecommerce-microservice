@@ -3,12 +3,8 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import morgan from "morgan";
-import {
-  createInventory,
-  getInventoryById,
-  getInventoryDetails,
-  updateInventory,
-} from "./controllers";
+import { createUser, getUserById } from "./controllers";
+
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -19,7 +15,6 @@ app.get("/health", (req, res) => {
   res.status(200).send("Inventory Service is healthy");
 });
 
-// routes
 // app.use((req, res, next) => {
 //   const allowOrigins = ["http://localhost:8081", "http://127.0.0.1:8081"];
 //   const origin = req.headers.origin || "";
@@ -30,10 +25,10 @@ app.get("/health", (req, res) => {
 //   }
 // });
 
-app.get("/inventories/:id/details", getInventoryDetails);
-app.get("/inventories/:id", getInventoryById);
-app.put("/inventories/:id", updateInventory);
-app.post("/inventories", createInventory);
+// routes
+
+app.get("/users/:id", getUserById);
+app.post("/users", createUser);
 
 //  404 handler
 app.use((req, res, next) => {
@@ -56,8 +51,8 @@ app.use(
   }
 );
 
-const PORT = process.env.PORT || 4001;
-const serviceName = process.env.SERVICE_NAME || "inventory-service";
+const PORT = process.env.PORT || 4004;
+const serviceName = process.env.SERVICE_NAME || "user-service";
 
 app.listen(PORT, () => {
   console.log(`${serviceName} Service is running on port ${PORT}`);

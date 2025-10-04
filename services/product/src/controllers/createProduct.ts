@@ -2,7 +2,6 @@ import { INVENTORY_URL } from "@/config";
 import prisma from "@/prisma";
 import { ProductCreateDTOSchema } from "@/schema";
 import axios from "axios";
-import { error } from "console";
 
 import { NextFunction, Request, Response } from "express";
 
