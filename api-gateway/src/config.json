@@ -5,8 +5,13 @@
       "routes": [
         {
           "path": "/products",
-          "methods": ["get", "post"],
+          "methods": ["post"],
           "middlewares": ["auth"]
+        },
+        {
+          "path": "/products",
+          "methods": ["get"],
+          "middlewares": []
         },
         {
           "path": "/products/:id",
