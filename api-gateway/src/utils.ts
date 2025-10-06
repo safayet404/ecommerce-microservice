@@ -22,6 +22,11 @@ export const createHandler = (
         data: req.body,
         headers: {
           origin: "http://localhost:8081",
+          "x-user-id": req.headers["x-user-id"] || "",
+          "x-user-role": req.headers["x-user-role"] || "",
+          "x-user-email": req.headers["x-user-email"] || "",
+          "x-user-name": req.headers["x-user-name"] || "",
+          "user-agent": req.headers["user-agent"] || "",
         },
       });
 
@@ -56,3 +61,5 @@ export const configureRoutes = (app: Express) => {
     });
   });
 };
+
+export const sleep = "hello";
