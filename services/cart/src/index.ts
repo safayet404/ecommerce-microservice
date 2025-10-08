@@ -3,7 +3,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import morgan from "morgan";
-import { addToCart, getMyCart } from "./controllers";
+import { addToCart, clearCart, getMyCart } from "./controllers";
 import "./events/onKeyExpires";
 dotenv.config();
 const app = express();
@@ -19,6 +19,7 @@ app.get("/health", (req, res) => {
 
 app.post("/cart/add-to-cart", addToCart);
 app.get("/cart/me", getMyCart);
+app.get("/cart/clear", clearCart);
 
 // app.use((req, res, next) => {
 //   const allowOrigins = ["http://localhost:8081", "http://127.0.0.1:8081"];
